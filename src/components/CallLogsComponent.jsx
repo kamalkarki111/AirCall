@@ -33,8 +33,8 @@ export const CallLogs = React.memo(() => {
                 // Hide loader after fetching calls
                 loader.setShowLoader(false);
 
-                // Filter out archived calls and update chat data
-                chatsData.value.setChatData(data.filter((val) => !val.is_archived));
+                // Filter out archived calls and update chat data sort in latest first
+                chatsData.value.setChatData(data.filter((val) => !val.is_archived)?.reverse());
             })
             .catch((err) => {
                 // Hide loader and handle error

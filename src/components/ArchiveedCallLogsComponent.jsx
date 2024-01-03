@@ -35,7 +35,7 @@ export const ArchivedCallLogs = React.memo(() => {
                 loader.setShowLoader(false);
 
                 // Set archived chat data
-                archiveChatData.value.setArchivedChatData(data.filter((val => val.is_archived)));
+                archiveChatData.value.setArchivedChatData(data.filter((val => val.is_archived)).reverse());
             })
             .catch((err) => {
                 // Hide loader and handle error

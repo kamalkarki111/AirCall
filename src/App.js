@@ -15,9 +15,11 @@ function App() {
   return (
     <div className='container' style={{position:'relative'}} >
       <Header/>
-      <div style={{height:'calc(100% - 162px)', overflow:'auto', position:'relative'}}>
-        {tabContext.value.selectedtabs === 0 && <CallLogs/>}
-        {tabContext.value.selectedtabs === 1 && <ArchivedCallLogs/>}
+      <div style={{height:'calc(100% - 162px)', position:'relative'}}>
+        <div style={{height:'100%', overflow:'auto', position:'relative'}}>
+          {tabContext.value.selectedtabs === 0 && <CallLogs/>}
+          {tabContext.value.selectedtabs === 1 && <ArchivedCallLogs/>}
+        </div>
         <Loader/>
       </div>
       <Footer/>
