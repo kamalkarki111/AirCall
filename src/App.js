@@ -1,23 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import Header from './components/HeaderComponent'
+import { CallLogs } from './components/CallLogsComponent';
+import Footer from './components/FooterComponent';
+import { useContext } from 'react';
+import { CallTabContext } from './contexts/CallContextProvider';
+import { ArchivedCallLogs } from './components/ArchiveedCallLogsComponent';
+import Loader from './components/LoaderComponent';
+import ErrorHandler from './components/ErrorHandlerToastComponent';
+
 
 function App() {
+  const tabContext = useContext(CallTabContext)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container' style={{position:'relative'}} >
+      <Header/>
+      <div style={{height:'calc(100% - 162px)', overflow:'auto', position:'relative'}}>
+        {tabContext.value.selectedtabs === 0 && <CallLogs/>}
+        {tabContext.value.selectedtabs === 1 && <ArchivedCallLogs/>}
+        <Loader/>
+      </div>
+      <Footer/>
+      <ErrorHandler/>
     </div>
   );
 }
