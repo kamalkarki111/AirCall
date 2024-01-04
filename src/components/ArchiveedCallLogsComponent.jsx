@@ -6,14 +6,14 @@ import { getCalls, unArchiveAll } from "../api/calls.api"
 import { CallInfo } from './CallInfoComponent';
 import Moment from 'react-moment'
 import { isDiffDate } from '../helper/callHelper';
-import { ArchivedChatDataContext } from '../contexts/CallContextProvider';
+import { ArchivedcallDataContext } from '../contexts/CallContextProvider';
 import { UnarchiveOutlined } from '@mui/icons-material';
 import { LoaderContext } from '../contexts/LoaderContextProvider';
 import { ErrorContext } from '../contexts/ErrorHandlerProvider';
 
 export const ArchivedCallLogs = React.memo(() => {
 
-    const archiveChatData = React.useContext(ArchivedChatDataContext)
+    const archivecallData = React.useContext(ArchivedcallDataContext)
     const loader = React.useContext(LoaderContext);
     const errorHandler = React.useContext(ErrorContext)
 
@@ -34,8 +34,8 @@ export const ArchivedCallLogs = React.memo(() => {
                 // Hide loader
                 loader.setShowLoader(false);
 
-                // Set archived chat data
-                archiveChatData.value.setArchivedChatData(data.filter((val => val.is_archived)).reverse());
+                // Set archived call data
+                archivecallData.value.setArchivedcallData(data.filter((val => val.is_archived)).reverse());
             })
             .catch((err) => {
                 // Hide loader and handle error
@@ -74,14 +74,14 @@ export const ArchivedCallLogs = React.memo(() => {
         <AccordionGroup sx={{ maxWidth: 400 }}>
             {
                 <>
-                    {archiveChatData.value.archivedChatData.length > 0 && <div onClick={unArchiveAllCalls} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', color: '#2AC420', cursor: 'pointer' }}>
+                    {archivecallData.value.archivedcallData.length > 0 && <div onClick={unArchiveAllCalls} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '10px', color: '#2AC420', cursor: 'pointer' }}>
                         Unarchive all <UnarchiveOutlined style={{ marginLeft: '5px' }} color={'success'}></UnarchiveOutlined>
                     </div>}
                     {
-                        archiveChatData.value.archivedChatData.map((call, index) => (
+                        archivecallData.value.archivedcallData.map((call, index) => (
                             <div key={call.id}>
                                 {index === 0 && <Moment style={{ color: '#2AC420', marginLeft: "5px" }} format={"DD MMM YYYY"}>{call.created_at}</Moment>}
-                                {index !== 0 && isDiffDate(archiveChatData.value.archivedChatData[index - 1].created_at, call.created_at) && <Moment style={{ color: '#2AC420', marginLeft: "5px" }} format={"DD MMM YYYY"}>{archiveChatData.value.archivedChatData[index - 1].created_at}</Moment>}
+                                {index !== 0 && isDiffDate(archivecallData.value.archivedcallData[index - 1].created_at, call.created_at) && <Moment style={{ color: '#2AC420', marginLeft: "5px" }} format={"DD MMM YYYY"}>{archivecallData.value.archivedcallData[index - 1].created_at}</Moment>}
                                 {call.is_archived && <div>
                                     <Accordion style={{ border: '1px solid #2AC420', margin: "5px", borderRadius: "5px" }} >
                                         <CallInfo call={call} updateCalls={getUpdatedCalls}></CallInfo>
@@ -93,7 +93,7 @@ export const ArchivedCallLogs = React.memo(() => {
                         ))
                     }
                     {
-                        archiveChatData.value.archivedChatData.length === 0 && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: "40px" }}>No Archived Chats</div>
+                        archivecallData.value.archivedcallData.length === 0 && <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: "40px" }}>No Archived Calls...!</div>
                     }
 
                 </>
