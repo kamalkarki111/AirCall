@@ -106,7 +106,7 @@ export async function ArchiveAll(calls) {
                 await archiveCall(calls[i].id)
             } catch (err) {
                 // Reject the promise if there is an error
-                return Promise.reject('Network Error while archiving call, try again');
+                return Promise.reject('Network Error while archiving some call, try again');
             }
         }
     } catch (err) {
